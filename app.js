@@ -4,33 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var session = require('express-session');
 
-
-var routes = require('./routes/index');
-var songs = require('./routes/songs');
-
-var app = express();
+//Mongoose config
 var mongoose = require('mongoose');
 mongoose.connect(process.env.DB_CONN_SPOTIFY);
-var User = require('./models/user');
 
+//Passport config
+var User = require('./models/user');
 var passport = require('passport');
 var SpotifyStrategy = require('passport-spotify').Strategy;
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
 passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_ID,
     clientSecret: process.env.SPOTIFY_SECRET,
@@ -52,6 +35,23 @@ passport.deserializeUser(function(id, done) {
     done(error, user);
   });
 });
+
+var routes = require('./routes/index');
+var songs = require('./routes/songs');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(passport.session());
