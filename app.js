@@ -21,7 +21,7 @@ passport.use(new SpotifyStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
-      return done(err, user);
+      return done(null, user);
     });
   }
 ));
