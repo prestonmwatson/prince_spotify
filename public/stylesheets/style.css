@@ -21,9 +21,15 @@ a {
 
 .playbtn {
   width: 20px;
+  padding-right: 10px;
 }
 
 .links {
   background-color: yellow;
   color: purple;
+}
+
+li{
+  padding: 5px 0px;
+  list-style-type: none;
 }
