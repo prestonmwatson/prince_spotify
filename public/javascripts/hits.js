@@ -2,9 +2,6 @@ $(document).ready(function(e) {
 
   getTracks()
 
-
-
-
 });
 
 function getTracks(){
@@ -18,7 +15,7 @@ function getTracks(){
       var link = data.tracks[i].external_urls.spotify;
       var name = data.tracks[i].name;
      console.log(data.tracks[i].external_urls.spotify);
-     $('ul').append('<li> <a href="' + link + '">Play</a><span>' + name + '</span></li>');
+     $('ul').append('<li> <a class="links" href="' + link + '"><img class="playbtn" src=http://www.clker.com/cliparts/i/P/7/C/V/X/purple-play-button.svg </a><span>' + name + '</span></li>');
 
     }
       return data;
