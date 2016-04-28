@@ -1,11 +1,20 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: yellow;
-  color:purple;
+  font: 30px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url(https://nyppagesix.files.wordpress.com/2016/04/aptopix-obit-prince_exch-1.jpg?quality=90&strip=all&w=1200);
+  color:white;
+}
+h1{
+  margin-left: 300px;
+}
+
+p{
+  margin-left: 470px;
 }
 
 a {
+  margin-left: 100px;
   color: white;
   background-color: purple;
+
 }
