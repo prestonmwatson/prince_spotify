@@ -27,6 +27,10 @@ router.get('/auth/spotify/callback', passport.authenticate('spotify', { failureR
   res.send('spotify has returned you authenticated to this location');
 });
 
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
+})
 
 
 module.exports = router;
