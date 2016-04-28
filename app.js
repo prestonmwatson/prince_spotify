@@ -32,8 +32,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 passport.use(new SpotifyStrategy({
-    clientID: SPOTIFY_ID,
-    clientSecret: SPOTIFY_SECRET,
+    clientID: process.env.SPOTIFY_ID,
+    clientSecret: process.env.SPOTIFY_SECRET,
     callbackURL: "http://localhost:3000/auth/spotify/callback"
   },
   function(accessToken, refreshToken, profile, done) {
