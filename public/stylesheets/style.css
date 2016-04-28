@@ -18,3 +18,12 @@ a {
   background-color: purple;
 
 }
+
+.playbtn {
+  width: 20px;
+}
+
+.links {
+  background-color: yellow;
+  color: purple;
+}
