@@ -4,14 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var session = require('express-session');
 
+
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var songs = require('./routes/songs');
 
 var app = express();
 var mongoose = require('mongoose');
 mongoose.connect(process.env.DB_CONN_SPOTIFY);
+var User = require('./models/user');
+
 var passport = require('passport');
 var SpotifyStrategy = require('passport-spotify').Strategy;
 
@@ -43,7 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/songs', songs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
