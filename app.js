@@ -43,6 +43,16 @@ passport.use(new SpotifyStrategy({
   }
 ));
 
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findOne({ '_id': id }, function(error, user) {
+    done(error, user);
+  });
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
