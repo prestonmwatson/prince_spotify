@@ -12,7 +12,7 @@ function isLoggedIn(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 router.get('/hits', isLoggedIn, function(req, res, next){
@@ -20,11 +20,10 @@ router.get('/hits', isLoggedIn, function(req, res, next){
 });
 
 router.get('/auth/spotify', passport.authenticate('spotify', {}), function(req, res, next){
-  res.send('spotify sign in /redirect');
 });
 
 router.get('/auth/spotify/callback', passport.authenticate('spotify', { failureRedirect: '/' }), function(req, res, next){
-  res.send('spotify has returned you authenticated to this location');
+
 });
 
 router.get('/logout', function(req, res, next) {
