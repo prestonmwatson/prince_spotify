@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/hits', isLoggedIn, function(req, res, next){
-  res.send('Hits page');
+  res.render('hits');
 });
 
 router.get('/auth/spotify', passport.authenticate('spotify', {}), function(req, res, next){
