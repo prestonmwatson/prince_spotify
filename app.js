@@ -4,13 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var User = require('./models/user');
+
+var session = require('express-session');
+
 
 var routes = require('./routes/index');
 var songs = require('./routes/songs');
 
 var app = express();
+var mongoose = require('mongoose');
+mongoose.connect(process.env.DB_CONN_SPOTIFY);
+var User = require('./models/user');
+
+var passport = require('passport');
+var SpotifyStrategy = require('passport-spotify').Strategy;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +31,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(process.env.DB_CONN_SPOTIFY);
+passport.use(new SpotifyStrategy({
+    clientID: SPOTIFY_ID,
+    clientSecret: SPOTIFY_SECRET,
+    callbackURL: "http://localhost:3000/auth/spotify/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/songs', songs);
